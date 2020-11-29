@@ -23,7 +23,8 @@ set_property(TARGET speexdsp
     include/speex/speex_jitter.h
     include/speex/speex_preprocess.h
     include/speex/speex_resampler.h
-    include/speex/speexdsp_types.h)
+    include/speex/speexdsp_types.h
+    include/speex/speexdsp_config_types.h)
 target_include_directories(speexdsp
     PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
