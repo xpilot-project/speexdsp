@@ -455,8 +455,11 @@ EXPORT void jitter_buffer_put(JitterBuffer *jitter, const JitterBufferPacket *pa
       else
          jitter->arrival[i] = jitter->next_stop;
    }
-
-
+   else
+   {
+        if (jitter->destroy)
+            jitter->destroy(packet->data);
+   }
 }
 
 /** Get one packet from the jitter buffer */
