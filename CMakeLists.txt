@@ -1,8 +1,5 @@
 PROJECT(speexdsp LANGUAGES C)
 
-include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-conan_basic_setup()
-
 set(FFT_SOURCES
     libspeexdsp/smallft.c)
 
@@ -36,8 +33,7 @@ target_compile_definitions(speexdsp
     FLOATING_POINT
     USE_SSE
     USE_SMALLFT
-    "INCLUDE_STDINT=#include <stdint.h>"
-    EXPORT= )
+    EXPORT=)
 install(TARGETS speexdsp
     RUNTIME DESTINATION bin
     LIBRARY DESTINATION lib
