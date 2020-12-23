@@ -19,7 +19,7 @@ jobs:
             lib: "libspeexdsp.dll"
           - kind: macos
             os: macos-latest
-            lib: "libspeexdsp.dylib"
+            lib: "libspeexdsp.a"
 
     runs-on: ${{ matrix.os }}
 
