@@ -16,7 +16,7 @@ jobs:
             lib: "libspeexdsp.a"
           - kind: windows
             os: windows-latest
-            lib: "libspeexdsp.dll"
+            lib: "libspeexdsp.lib"
           - kind: macos
             os: macos-latest
             lib: "libspeexdsp.a"
