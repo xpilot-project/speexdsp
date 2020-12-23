@@ -41,7 +41,7 @@ jobs:
     - name: Package
       run: |
         mkdir -p binaries
-        cp ${{matrix.lib}} binaries/
+        cp ${{runner.workspace}}/build/${{ matrix.lib }} binaries/
       
     - uses: actions/upload-artifact@v2
       with:
