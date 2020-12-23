@@ -45,6 +45,12 @@ jobs:
         run: ctest -C $BUILD_TYPE
 
       - name: Package
+        if: matrix.os == 'windows-latest'
+        run: |
+          mkdir -p binaries
+          cp ${{runner.workspace}}/build/Release/${{matrix.lib}} binaries/
+      - name: Package
+        if: matrix.os != 'windows-latest'
         run: |
           mkdir -p binaries
           cp ${{runner.workspace}}/build/${{matrix.lib}} binaries/
