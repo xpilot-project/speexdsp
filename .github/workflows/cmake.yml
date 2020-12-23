@@ -9,41 +9,47 @@ jobs:
   build:
     strategy:
       matrix:
-        kind: ["linux"]
+        kind: ["linux", "windows", "macos"]
         include:
           - kind: linux
             os: ubuntu-latest
             lib: "libspeexdsp.a"
+          - kind: windows
+            os: windows-latest
+            lib: "libspeexdsp.dll"
+          - kind: macos
+            os: macos-latest
+            lib: "libspeexdsp.dylib"
 
     runs-on: ${{ matrix.os }}
 
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: Create Build Environment
-      run: cmake -E make_directory ${{runner.workspace}}/build
+      - name: Create Build Environment
+        run: cmake -E make_directory ${{runner.workspace}}/build
 
-    - name: Configure CMake
-      shell: bash
-      working-directory: ${{runner.workspace}}/build
-      run: cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=$BUILD_TYPE
+      - name: Configure CMake
+        shell: bash
+        working-directory: ${{runner.workspace}}/build
+        run: cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=$BUILD_TYPE
 
-    - name: Build
-      working-directory: ${{runner.workspace}}/build
-      shell: bash
-      run: cmake --build . --config $BUILD_TYPE
+      - name: Build
+        working-directory: ${{runner.workspace}}/build
+        shell: bash
+        run: cmake --build . --config $BUILD_TYPE
 
-    - name: Test
-      working-directory: ${{runner.workspace}}/build
-      shell: bash
-      run: ctest -C $BUILD_TYPE
+      - name: Test
+        working-directory: ${{runner.workspace}}/build
+        shell: bash
+        run: ctest -C $BUILD_TYPE
 
-    - name: Package
-      run: |
-        mkdir -p binaries
-        cp ${{runner.workspace}}/build/${{ matrix.lib }} binaries/
-      
-    - uses: actions/upload-artifact@v2
-      with:
-        name: speexdsp-${{ matrix.kind }}
-        path: binaries/
+      - name: Package
+        run: |
+          mkdir -p binaries
+          cp ${{runner.workspace}}/build/${{matrix.lib}} binaries/
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: speexdsp-${{ matrix.kind }}
+          path: binaries/
