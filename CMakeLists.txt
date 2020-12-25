@@ -1,5 +1,7 @@
 PROJECT(speexdsp LANGUAGES C)
 
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
 set(FFT_SOURCES
     libspeexdsp/smallft.c)
 
