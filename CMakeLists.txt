@@ -2,6 +2,8 @@ PROJECT(speexdsp LANGUAGES C)
 
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
+set(CMAKE_OSX_ARCHITECTURES "x86_64;arm64" CACHE INTERNAL "")
+
 set(FFT_SOURCES
     libspeexdsp/smallft.c)
 
