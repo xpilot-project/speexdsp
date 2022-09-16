@@ -2,7 +2,7 @@ PROJECT(speexdsp LANGUAGES C)
 
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
-set(CMAKE_OSX_ARCHITECTURES "arm64" CACHE INTERNAL "")
+set(CMAKE_OSX_ARCHITECTURES "x86_64;arm64" CACHE INTERNAL "")
 
 set(FFT_SOURCES
     libspeexdsp/smallft.c)
@@ -32,12 +32,20 @@ target_include_directories(speexdsp
     $<INSTALL_INTERFACE:include>
     PRIVATE
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/speex>)
+if(APPLE)
+target_compile_definitions(speexdsp
+    PRIVATE 
+    FLOATING_POINT
+    USE_SMALLFT
+    EXPORT=)
+else()
 target_compile_definitions(speexdsp
     PRIVATE 
     FLOATING_POINT
     USE_SSE
     USE_SMALLFT
     EXPORT=)
+endif()
 install(TARGETS speexdsp
     RUNTIME DESTINATION bin
     LIBRARY DESTINATION lib
